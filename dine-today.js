@@ -20,13 +20,15 @@ if (Meteor.isClient) {
       customers: function () {
         return Customers.find({});
       }
+
     });
+
+  Accounts.ui.config({
+        passwordSignupFields: "USERNAME_ONLY"
+      });
 
 
   Template.settings.helpers({
-    'username': function(){
-        return "Some other text"
-    },
     'name': function(){
         return "Some other text"
     },
@@ -50,34 +52,31 @@ if (Meteor.isClient) {
       console.log("Submit button clicked");
       event.preventDefault();
 
-      var username = event.target.username.value;
       var name = event.target.name.value;
       var phone = event.target.phone.value;
       var email = event.target.email.value;
       var allergies = event.target.allergies.value;
-      var password = event.target.password.value;
       var zip = event.target.zip.value;
+      var userid = Meteor.userId();
 
       Customers.insert({
-        username: username,
+        userid: userid,
         name: name,
         phone: phone,
         email: email,
         allergies: allergies,
-        password: password,
         zip: zip,
         createdAt: new Date()
       });
 
       console.log("Added new user to the database with values:")
-      console.log(name + " " + phone + " " + email + " " + allergies + " " + password + " " + zip);
+      console.log(name + " " + phone + " " + email + " " + allergies + " " + zip);
 
       // clear form
       event.target.name.value = "";
       event.target.phone.value = "";
       event.target.email.value = "";
       event.target.allergies.value = "";
-      event.target.password.value = "";
       event.target.zip.value = "";
 
     }
@@ -85,8 +84,6 @@ if (Meteor.isClient) {
 
   Template.su.events({
     'click .signUp': function () {
-      // increment the counter when button is clicked
-      // Session.set('counter', Session.get('counter') + 1);
       $("#signUp").toggleClass("hidden");
       console.log("clicked button");
     }
@@ -104,14 +101,16 @@ if (Meteor.isClient) {
        $("#restaurants").toggleClass("hidden");
      }
   });
+
+  Template.dd.events({
+    'click .dailyDeals': function() {
+       $("#dailyDeals").toggleClass("hidden"); 
+     }
+  });
+
 }
 
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-    console.log("Now running meteor!");
-  });
-}
+
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
