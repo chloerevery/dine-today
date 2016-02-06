@@ -4,29 +4,26 @@
   <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
 
 </head>
-
-
-
 <body>
-
-
-
   <h1 class="text-center">Dine Today</h1>
-<div class="text-center">
+  <div class="text-center">
+  {{> loginButtons}}
+
   {{> dd}}
   {{> si}}
   {{> su}}
   {{> rest}}
+  
 
 <div id="signUp" class="hidden"> 
   {{> signUp}}
-  </div>
+</div>
 
 <div id="signIn" class="hidden">
   {{> signIn}}
 </div>
 
-  <div id="dailyDeals" class="hidden">
+<div id="dailyDeals" class="hidden">
   {{> dealDetail}}
 </div>
   <!-- settings -->
@@ -34,7 +31,7 @@
   {{> myReservations}}
   {{> paymentInfo}}
   <!-- restaurant portal -->
-  <div id="restaurants" class="hidden">
+<div id="restaurants" class="hidden">
   {{> restaurantLogin}}
   {{> restaurantProfile}}
   {{> restaurantReservations}}
@@ -63,19 +60,15 @@
   </div><br>
 </template>
 <template name="rest">
-  <div class="restaurant">
+  <div class="restaurants">
     <button type="button" class="btn btn-info">Restaurants</button>
   </div>
 </template>
 
 
 <template name="signUp">
-  <h1>Sign Up</h1>
+  <h4>Almost done! We just need a little more information about you.</h4>
       <form class="new-user">
-      <fieldset class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username">
-      </fieldset>
       <fieldset class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name">
@@ -88,10 +81,6 @@
         <label for="email">Email</label>
         <input type="email" class="form-control" id="email">
         <small class="text-muted">We'll never share your email with anyone else.</small>
-      </fieldset>
-      <fieldset class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password">
       </fieldset>
       <fieldset class="form-group">
         <label for="allergies">Food Allergies</label>
