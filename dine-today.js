@@ -1,5 +1,5 @@
 Deals = new Mongo.Collection("deals");
-Users = new Mongo.Collection("users");
+Customers = new Mongo.Collection("customers");
 
 if (Meteor.isClient) {
   // counter starts at 0
@@ -17,8 +17,8 @@ if (Meteor.isClient) {
       //   { text: "This is deal 2" },
       //   { text: "This is deal 3" }
       // ]
-      users: function () {
-        return Users.find({});
+      customers: function () {
+        return Customers.find({});
       }
     });
 
@@ -58,7 +58,7 @@ if (Meteor.isClient) {
       var password = event.target.password.value;
       var zip = event.target.zip.value;
 
-      Users.insert({
+      Customers.insert({
         username: username,
         name: name,
         phone: phone,
