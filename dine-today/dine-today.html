@@ -18,17 +18,19 @@
   {{> su}}
   {{> rest}}
 
-<div id="signUp" class="hidden">
-  	{{> signUp}}
+<div id="signUp" class="hidden"> 
+  {{> signUp}}
+  </div>
+
+<div id="signIn" class="hidden">
+  {{> signIn}}
 </div>
 
- <div id="signIn" class="hidden">
-  	{{> signIn}}
-</div>
-  {{> mainPage}}
+  <div id="dailyDeals" class="hidden">
   {{> dealDetail}}
+</div>
   <!-- settings -->
-  {{> settings}}
+  {{> settings}} 
   {{> myReservations}}
   {{> paymentInfo}}
   <!-- restaurant portal -->
@@ -38,7 +40,6 @@
   {{> restaurantReservations}}
   {{> restaurantCreateDeal}}
 </div>
-
 </div>
 
 
@@ -46,55 +47,62 @@
 <!-- <script src="js/bootstrap.min.js" type="text/javascript"></script> -->
 </body>
 
-	<template name="dd">
-	  <div class="dailyDeals">
-	  	<button type="button" class="btn btn-secondary">Daily Deals</button>
-	  </div><br>
-	</template>
-	<template name ="si">
-	  <div class="signIn">
-	  	<button type="button" class="btn btn-success">Sign In</button>
-	  </div><br>
-	</template>
-	<template name = "su">
-	  <div class="signUp">
-	  	<button type="button" class="btn btn-primary">Sign Up</button>
-	  </div><br>
-	</template>
-	<template name = "rest">
-	  <div class="restaurants">
-	  	<button type="button" class="btn btn-info">Restaurants</button>
-	  </div>
-	</template>
-
+<template name="dd">
+  <div class="dailyDeals">
+    <button type="button" class="btn btn-secondary">Daily Deals</button>
+  </div><br>
+</template>
+<template name="si">
+  <div class="signIn">
+    <button type="button" class="btn btn-success">Sign In</button>
+  </div><br>
+</template>
+<template name="su">
+  <div class="signUp">
+    <button type="button" class="btn btn-primary">Sign Up</button>
+  </div><br>
+</template>
+<template name="rest">
+  <div class="restaurant">
+    <button type="button" class="btn btn-info">Restaurants</button>
+  </div>
+</template>
 
 
 <template name="signUp">
-  <p>Sign up page here</p>
-		  <form>
-		  <fieldset class="form-group">
-    		<label for="name">Name</label>
-    		<input type="text" class="form-control" id="name">
- 		  </fieldset>
-		  <fieldset class="form-group">
-		    <label for="email">Email</label>
-		    <input type="email" class="form-control" id="email">
-		    <small class="text-muted">We'll never share your email with anyone else.</small>
-		  </fieldset>
-		  <fieldset class="form-group">
-		    <label for="password">Password</label>
-		    <input type="password" class="form-control" id="password">
-		  </fieldset>
-		  <fieldset class="form-group">
-		    <label for="allergies">Food Allergies</label>
-		    <textarea class="form-control" id="allergies" rows="3" placeholder="Please enter food allergies, separated by a comma."></textarea>
-		  </fieldset>
-		  <fieldset class="form-group">
-		    <label for="zip">Zip Code</label>
-		    <input type="zip" class="form-control" id="zip">
-		  </fieldset>
-		  <button type="submit" class="btn btn-primary">Submit</button>
-		</form>
+  <h1>Sign Up</h1>
+      <form class="new-user">
+      <fieldset class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username">
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name">
+      </fieldset>
+       <fieldset class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="number" class="form-control" id="phone">
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email">
+        <small class="text-muted">We'll never share your email with anyone else.</small>
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password">
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="allergies">Food Allergies</label>
+        <textarea class="form-control" id="allergies" rows="3" placeholder="Please enter food allergies, separated by a comma."></textarea>
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="zip">Zip Code</label>
+        <input type="zip" class="form-control" id="zip">
+      </fieldset>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 </template>
 
 
@@ -102,8 +110,10 @@
   <p>Sign in here</p>
 </template>
 
-<template name="mainPage">
-  <p>All deals here</p>
+  
+
+<template name="deal">
+   <li>{{text}}</li>
 </template>
 
 <template name="dealDetail">
@@ -111,7 +121,11 @@
 </template>
 
 <template name="settings">
-  <p>Edit your settings here.</p>
+  <p>Name: </p>{{name}}
+  <p>Phone number: </p>{{phone}}
+  <p>Email: </p>{{email}}
+  <p>Allergies: </p>{{allergies}}
+  <p>Zip Code: </p>{{zip}}
 </template>
 
 <template name="myReservations">

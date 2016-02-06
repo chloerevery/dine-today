@@ -26,18 +26,20 @@
   {{> signIn}}
 </div>
 
-  {{> mainPage}}
+  <div id="dailyDeals" class="hidden">
   {{> dealDetail}}
+</div>
   <!-- settings -->
-  {{> settings}}
+  {{> settings}} 
   {{> myReservations}}
   {{> paymentInfo}}
   <!-- restaurant portal -->
+  <div id="restaurants" class="hidden">
   {{> restaurantLogin}}
   {{> restaurantProfile}}
   {{> restaurantReservations}}
   {{> restaurantCreateDeal}}
-
+</div>
 </div>
 
 
@@ -49,13 +51,19 @@
   <div class="dailyDeals">
     <button type="button" class="btn btn-secondary">Daily Deals</button>
   </div><br>
-  <div class="si">
+</template>
+<template name="si">
+  <div class="signIn">
     <button type="button" class="btn btn-success">Sign In</button>
   </div><br>
-  <div class="su">
+</template>
+<template name="su">
+  <div class="signUp">
     <button type="button" class="btn btn-primary">Sign Up</button>
   </div><br>
-  <div class="rest">
+</template>
+<template name="rest">
+  <div class="restaurant">
     <button type="button" class="btn btn-info">Restaurants</button>
   </div>
 </template>

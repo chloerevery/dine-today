@@ -85,8 +85,6 @@ if (Meteor.isClient) {
 
   Template.su.events({
     'click .signUp': function () {
-      // increment the counter when button is clicked
-      // Session.set('counter', Session.get('counter') + 1);
       $("#signUp").toggleClass("hidden");
       console.log("clicked button");
     }
@@ -104,14 +102,16 @@ if (Meteor.isClient) {
        $("#restaurants").toggleClass("hidden");
      }
   });
+
+  Template.dd.events({
+    'click .dailyDeals': function() {
+       $("#dailyDeals").toggleClass("hidden"); 
+     }
+  });
+
 }
 
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-    console.log("Now running meteor!");
-  });
-}
+
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
