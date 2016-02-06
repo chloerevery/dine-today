@@ -1,8 +1,4 @@
 /* CSS declarations go here */
-/*.hidden {
+.hidden {
 	display: none;
-}*/
-
-.signUp {
-	display:none;
 }

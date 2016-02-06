@@ -15,7 +15,9 @@
 <div class="text-center">
   {{> landing}}
 
+<div id="signUp" class="hidden">
   {{> signUp}}
+  </div>
   {{> signIn}}
   {{> mainPage}}
   {{> dealDetail}}
@@ -37,13 +39,18 @@
 </body>
 
 <template name="landing">
-  <button type="button" class="btn btn-secondary">Daily Deals</button>
-  <br><br>
-  <button type="button" class="btn btn-success">Log In</button>
-  <br><br>
-  <button type="button" class="btn btn-primary">Sign Up</button>
-  <br><br>
-  <button type="button" class="btn btn-info">Restaurants</button>
+  <div class="dailyDeals">
+  	<button type="button" class="btn btn-secondary">Daily Deals</button>
+  </div><br>
+  <div class="signIn">
+  	<button type="button" class="btn btn-success">Sign In</button>
+  </div><br>
+  <div class="signUp">
+  	<button type="button" class="btn btn-primary">Sign Up</button>
+  </div><br>
+  <div class="restaurants">
+  	<button type="button" class="btn btn-info">Restaurants</button>
+  </div>
 </template>
 
 

@@ -9,10 +9,11 @@ if (Meteor.isClient) {
   // });
 
   Template.landing.events({
-    'click button': function () {
+    'click .signUp': function () {
       // increment the counter when button is clicked
       // Session.set('counter', Session.get('counter') + 1);
-      
+      $("#signUp").toggleClass("hidden");
+      console.log("clicked button");
     }
   });
 }
