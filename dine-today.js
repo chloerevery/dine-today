@@ -2,15 +2,7 @@ Deals = new Mongo.Collection("deals");
 Customers = new Mongo.Collection("customers");
 
 if (Meteor.isClient) {
-  // counter starts at 0
   Session.setDefault('counter', 0);
-
-  // Template.hello.helpers({
-  //   counter: function () {
-  //     return Session.get('counter');
-  //   }
-  // });
-
   Template.body.helpers({
       //  deals: [
       //   { text: "This is deal 1" },
@@ -27,10 +19,13 @@ if (Meteor.isClient) {
         passwordSignupFields: "USERNAME_ONLY"
       });
 
-
+    console.log(Meteor.userId());
+    var userId1 = Meteor.userId();
   Template.settings.helpers({
+
+
     'name': function(){
-        return "Some other text"
+        return Customers.find({'userid': 'mpYPRwrjxxBS8rQh6'})
     },
     'phone': function(){
         return "Some other text"
