@@ -18,27 +18,12 @@ if (Meteor.isClient) {
   Accounts.ui.config({
         passwordSignupFields: "USERNAME_ONLY"
       });
-
-    console.log(Meteor.userId());
-    var userId1 = Meteor.userId();
+  
   Template.settings.helpers({
 
-
-    'name': function(){
-        return Customers.find({'userid': 'mpYPRwrjxxBS8rQh6'})
-    },
-    'phone': function(){
-        return "Some other text"
-    },
-    'email': function(){
-        return "Some other text"
-    },
-    'allergies': function(){
-        return "Some other text"
-    },
-    'zip': function(){
-        return "Some other text"
-    }
+    'customers': function(){
+     return Customers.find({'userid': Meteor.userId()})
+   }
 
   });
 
