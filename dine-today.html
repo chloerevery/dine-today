@@ -110,12 +110,31 @@
 </template>
 
 <template name="settings">
-  <h5>Settings</h5>
-  <p>Name: </p>{{name}}
-  <p>Phone number: </p>{{phone}}
-  <p>Email: </p>{{email}}
-  <p>Allergies: </p>{{allergies}}
-  <p>Zip Code: </p>{{zip}}
+<h5>Settings</h5>
+  <p>Name: </p>
+  {{#each customers}}
+    {{name}}
+  {{/each}}
+  
+  <p>Phone number: </p>
+  {{#each customers}}
+    {{phone}}
+  {{/each}}
+
+  <p>Email: </p>
+  {{#each customers}}
+    {{email}}
+  {{/each}}
+
+  <p>Allergies: </p>
+  {{#each customers}}
+    {{allergies}}
+  {{/each}}
+
+  <p>Zip Code: </p>
+  {{#each customers}}
+    {{zip}}
+  {{/each}}
 </template>
 
 <template name="myReservations">
