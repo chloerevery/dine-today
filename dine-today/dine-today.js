@@ -22,7 +22,12 @@ if (Meteor.isClient) {
     'click .signIn': function() {
        $("#signIn").toggleClass("hidden");
      }
+  });
 
+  Template.rest.events({
+    'click .restaurants': function() {
+       $("#restaurants").toggleClass("hidden");
+     }
   });
 }
 
