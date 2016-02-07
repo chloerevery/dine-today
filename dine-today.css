@@ -11,3 +11,22 @@
 	color: #f0ad4e;
 }
 
+#credits {
+	font-size: 10px;
+}
+
+body {
+	background-image: url("http://i.imgur.com/Y5BZ9a3.jpg");
+	background-repeat: no-repeat;
+	background-color: #361502;
+}
+
+.white {
+	background-color: white;
+	margin-top: 3em;
+	margin-bottom: 3em;
+}
+
+.img-responsive {
+	margin: 0 auto;
+}
