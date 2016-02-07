@@ -7,7 +7,7 @@
 <body>
   <h1 class="text-center">Dine Today</h1>
   <div class="text-center">
-  {{> loginButtons}}
+  {{> loginButtons}}<br><br>
   {{#if currentUser}}
 
   {{#if isRestaurant}}
@@ -40,11 +40,8 @@
   <div id="takenDeals" class="hidden">
     {{> takenDeals}}
   </div>
-  {{> paymentInfo}}
   <!-- restaurant portal -->
 <div id="restaurants" class="hidden">
-  {{> restaurantProfile}}
-  {{> restaurantReservations}}
   {{> restaurantCreateDeal}}
 </div>
  {{> selectsettings}}
@@ -60,26 +57,26 @@
 
 <template name="dd">
   <div class="dailyDeals">
-    <button type="button" class="btn btn-secondary">Daily Deals</button>
+    <button type="button" class="btn btn-success">Daily Deals</button>
   </div><br>
 </template>
 
 <template name="viewMyReservations">
   <div class="myReservations">
-    <button type="button" class="btn btn-secondary">My Reservations</button>
-  </div><br>
+    <button type="button" class="btn btn-primary">My Reservations</button>
+  </div>
 </template>
 
 <template name="viewTakenDeals">
   <div class="takenDeals">
-    <button type="button" class="btn btn-secondary">Taken Deals</button>
-  </div><br>
+    <button type="button" class="btn btn-success">Taken Deals</button>
+  </div>
 </template>
 
 <template name="postdeal">
   <div class="restaurants">
     <button type="button" class="btn btn-info">Post a Deal</button>
-  </div>
+  </div><br>
 </template>
 
 
@@ -133,7 +130,7 @@
 
 <template name="selectsettings">
   <div class="settings">
-    <button type="button" class="btn btn-info">Settings</button>
+    <button type="button" class="btn btn-secondary">Settings</button>
   </div>
 </template>
 <template name="settings">
@@ -274,20 +271,8 @@
 
 </template>
 
-<template name="paymentInfo">
-  <p>Edit payment information here.</p>
-</template>
-
 <template name="restaurantLogin">
   <p>Restaurant login page.</p>
-</template>
-
-<template name="restaurantProfile">
-  <p>View or edit your restaurant profile.</p>
-</template>
-
-<template name="restaurantReservations">
-  <p>See reservations at your restaurant here.</p>
 </template>
 
 <template name="restaurantCreateDeal">
