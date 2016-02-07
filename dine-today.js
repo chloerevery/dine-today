@@ -22,9 +22,19 @@ if (Meteor.isClient) {
         } else {
           return false
         }
+      },
 
-        //if customers has an entry with their user id, show the signup form
-
+      isRestaurant: function() {
+        //if is restaurant, show restaurant menu (post deal)
+        //if is diner, show diner menu (deals)
+        var isRestaurant = Customers.find( { 'userid': Meteor.userId(), 'usertype': 'restaurant'} ).count();
+        if (isRestaurant>0) {
+          console.log("she's a restaurant");
+          return true;
+        } else {
+          console.log("she's a customer");
+          return false
+        }
       }
 
     });
@@ -132,7 +142,7 @@ if (Meteor.isClient) {
     "submit .new-user": function() {
       console.log("Submit button clicked");
       event.preventDefault();
-      var restaurant = event.target.name.value;
+      var isRestaurant = event.target.userType.value;
 
       var name = event.target.name.value;
       var phone = event.target.phone.value;
@@ -141,7 +151,7 @@ if (Meteor.isClient) {
       var zip = event.target.zip.value;
       var userid = Meteor.userId();
       Customers.insert({
-        restaurant: restaurant,
+        usertype: isRestaurant,
         userid: userid,
         name: name,
         phone: phone,
@@ -165,7 +175,7 @@ if (Meteor.isClient) {
   });
 
 
-  Template.rest.events({
+  Template.postdeal.events({
     'click .restaurants': function() {
        $("#restaurants").toggleClass("hidden");
      }
