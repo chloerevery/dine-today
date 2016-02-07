@@ -10,13 +10,19 @@
   {{> loginButtons}}
 
   {{> dd}}
-  {{> su}}
   {{> rest}}
+  </div>
   
 
-<div id="signUp" class="hidden"> 
+
+<div id="signUp"> 
+{{#if hasSignedUp}}
+{{else}}
   {{> signUp}}
+{{/if}}
 </div>
+
+
 
 
 
@@ -36,7 +42,7 @@
   {{> restaurantReservations}}
   {{> restaurantCreateDeal}}
 </div>
-</div>
+
 
 
 <!-- <script src="js/jquery-1.12.0.min.js" type="text/javascript"></script> -->
@@ -49,11 +55,6 @@
   </div><br>
 </template>
 
-<template name="su">
-  <div class="signUp">
-    <button type="button" class="btn btn-primary">Sign Up</button>
-  </div><br>
-</template>
 <template name="rest">
   <div class="restaurants">
     <button type="button" class="btn btn-info">Restaurants</button>
@@ -94,6 +95,7 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </template>
+
 
   
 
