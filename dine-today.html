@@ -30,10 +30,7 @@
   {{> dealsList}}
 </div>
 
-  <!-- settings -->
-  <div id="settings" class="hidden">
-    {{> settings}} 
-  </div>
+  
   <div id="myReservations" class="hidden">
     {{> myReservations}}
   </div>
@@ -44,7 +41,11 @@
 <div id="restaurants" class="hidden">
   {{> restaurantCreateDeal}}
 </div>
+ <!-- settings -->
  {{> selectsettings}}
+  <div id="settings" class="hidden">
+    {{> settings}} 
+  </div>
 
 
 
@@ -106,8 +107,8 @@
         <small class="text-muted">We'll never share your email with anyone else.</small>
       </fieldset>
       <fieldset class="form-group">
-        <label for="allergies">Food Allergies</label>
-        <textarea class="form-control" id="allergies" rows="3" placeholder="Please enter food allergies, separated by a comma."></textarea>
+        <label for="allergies">Dietary restrictions</label>
+        <textarea class="form-control" id="allergies" rows="3" placeholder="Please enter any dietary restrictions."></textarea>
       </fieldset>
       <fieldset class="form-group">
         <label for="zip">Zip Code</label>
@@ -134,17 +135,16 @@
   </div>
 </template>
 <template name="settings">
-<h3>Settings</h3>
 
   
   <div class="settingsName">
   
     Name:
     {{#each customers}}
-      {{name}}
+      <span id="settingvar">{{name}}</span>
     {{/each}}
 
-    <button type="button" class="btn btn-link btn-small">Edit</button>
+    <button type="button" class="btn btn-link btn-sm">Edit</button>
 
   </div>
 
@@ -155,7 +155,7 @@
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name">
       </fieldset>
-      <button type="submit" class="btn btn-primary">Change Name</button>
+      <button type="submit" class="btn btn-primary btn-xs">Change Name</button>
     </form> 
     {{/each}}
   </div>
@@ -163,9 +163,9 @@
   <div class="settingsPhone">
     Phone number:
     {{#each customers}}
-      {{phone}}
+      <span id="settingvar">{{phone}}</span>
     {{/each}}
-    <button type="button" class="btn btn-link btn-small">Edit</button>
+    <button type="button" class="btn btn-link btn-sm">Edit</button>
   </div>
 
   <div class="changePhone hidden">
@@ -175,7 +175,7 @@
         <label for="phone">Phone</label>
         <input type="number" class="form-control" id="phone">
       </fieldset>
-      <button type="submit" class="btn btn-primary">Change Phone</button>
+      <button type="submit" class="btn btn-primary btn-xs">Change Phone</button>
     </form> 
     {{/each}}
   </div>
@@ -183,9 +183,9 @@
   <div class="settingsEmail">
     Email:
     {{#each customers}}
-      {{email}}
+      <span id="settingvar">{{email}}</span>
     {{/each}}
-    <button type="button" class="btn btn-link btn-small">Edit</button>
+    <button type="button" class="btn btn-link btn-sm">Edit</button>
   </div>
   <div class="changeEmail hidden">
   {{#each customers}}
@@ -194,26 +194,26 @@
         <label for="email">Email</label>
         <input type="text" class="form-control" id="email">
       </fieldset>
-      <button type="submit" class="btn btn-primary">Change Email</button>
+      <button type="submit" class="btn btn-primary btn-xs">Change Email</button>
     </form> 
   {{/each}}
   </div>
 
   <div class="settingsAllergies">
-    Allergies:
+    Dietary Restrictions:
     {{#each customers}}
-      {{allergies}}
+      <span id="settingvar">{{allergies}}</span>
     {{/each}}
-    <button type="button" class="btn btn-link btn-small">Edit</button>
+    <button type="button" class="btn btn-link btn-sm">Edit</button>
   </div>
   <div class="changeAllergies hidden">
   {{#each customers}}
     <form class="change-allergies">
       <fieldset class="form-group">
-        <label for="allergies">Change Allergies</label>
+        <label for="allergies">Dietary Restrictions</label>
         <input type="text" class="form-control" id="allergies">
       </fieldset>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary btn-xs">Change Dietary Restrictions</button>
     </form> 
   {{/each}}
   </div>
@@ -221,9 +221,9 @@
   <div class="settingsZip">
     Zip Code:
     {{#each customers}}
-      {{zip}}
+      <span id="settingvar">{{zip}}</span>
     {{/each}}
-    <button type="button" class="btn btn-link btn-small">Edit</button>
+    <button type="button" class="btn btn-link btn-sm">Edit</button>
   </div>
     <div class="changeZip hidden">
     {{#each customers}}
@@ -232,7 +232,7 @@
         <label for="zip">Zip Code</label>
         <input type="text" class="form-control" id="zip">
       </fieldset>
-      <button type="submit" class="btn btn-primary">Change Zip Code</button>
+      <button type="submit" class="btn btn-primary btn-xs">Change Zip Code</button>
     </form> 
     {{/each}}
   </div>
@@ -240,16 +240,14 @@
 
 
 <template name="myReservations">
-<h4>My Upcoming Reservations</h4>
 {{#each deals}}
-  <strong>{{restaurantname}}</strong>
+  <div id="restaurantname"><strong>{{restaurantname}}</strong></div>
+  <strong>Percent off:</strong> {{discount}}%
+  <br>
+  <strong>Time:</strong> {{time}}
+  <br>
+  <strong>Party size:</strong> {{partysize}} 
   <br><br>
-  Percent off: {{discount}}%
-  <br><br>
-  Time: {{time}}
-  <br><br>
-  Party size: {{partysize}} 
-  <br><br><br>
 
 {{/each}}
 </template>
@@ -259,13 +257,13 @@
   {{#each deals}}
     <strong>{{time}}</strong>
     <br><br>
-    Percent off: {{discount}}%
+    <strong>Percent off:</strong> {{discount}}%
     <br><br>
-    Party size: {{partysize}} 
+    <strong>Party size:</strong> {{partysize}} 
     <br><br>
-    Number sold: {{tablessold}}
+    <strong>Number sold:</strong> {{tablessold}}
     <br><br>
-    Customers: {{claimants}}
+    <strong>Customers:</strong> {{claimants}}
     <br><br><br>
   {{/each}}
 
@@ -309,13 +307,13 @@
 <template name="dealsList">
       {{#each deals}}
         {{#if dealsAvailable _id}}
-          Restaurant: {{restaurantname}}
-          Percent off: {{discount}}%
-          Tables left at this price: {{tables}}
-          Time: {{time}}
-          Party size: {{partysize}} 
+          <div id="restaurantname"><strong>{{restaurantname}}</strong></div>
+          <strong>Percent off:</strong> {{discount}}%
+          <br><strong>Tables left at this price:</strong> {{tables}}
+          <br><strong>Time:</strong> {{time}}
+          <br><strong>Party size:</strong> {{partysize}} 
           <div class="dealButton">
-            <button type="button" class="btn btn-secondary">Claim this Deal</button>
+            <button type="button" class="btn btn-warning btn-sm">Claim this Deal</button>
             </div>
           <br><br>
         {{/if}}
