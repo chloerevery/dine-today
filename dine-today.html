@@ -15,6 +15,7 @@
   {{else}}
     {{> dd}}
   {{/if}}
+  {{> selectsettings}}
   </div>
   
 
@@ -40,8 +41,8 @@
     {{/each}}
 </div>
   <!-- settings -->
-  <div id="settings" class="">
-  {{> settings}} 
+  <div id="settings" class="hidden">
+  	{{> settings}} 
   </div>
   {{> myReservations}}
   {{> paymentInfo}}
@@ -119,6 +120,11 @@
   <p>View deal details here.</p>
 </template>
 
+<template name="selectsettings">
+	<div class="settings">
+    <button type="button" class="btn btn-info">Settings</button>
+  </div>
+</template>
 <template name="settings">
 <h3>Settings</h3>
 
