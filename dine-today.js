@@ -13,6 +13,18 @@ if (Meteor.isClient) {
       customers: function () {
 
         return Customers.find({});
+      },
+
+      hasSignedUp: function() {
+        var hasSignedUp = Customers.find( { 'userid': Meteor.userId()} ).count();
+        if (hasSignedUp>0) {
+          return true;
+        } else {
+          return false
+        }
+
+        //if customers has an entry with their user id, show the signup form
+
       }
 
     });
@@ -149,13 +161,6 @@ if (Meteor.isClient) {
       event.target.allergies.value = "";
       event.target.zip.value = "";
 
-    }
-  });
-
-  Template.su.events({
-    'click .signUp': function () {
-      $("#signUp").toggleClass("hidden");
-      console.log("clicked button");
     }
   });
 
