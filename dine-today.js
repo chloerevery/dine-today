@@ -15,6 +15,11 @@ if (Meteor.isClient) {
         return Customers.find({});
       },
 
+      deals: function () {
+
+        return Deals.find({});
+      },
+
       hasSignedUp: function() {
         var hasSignedUp = Customers.find( { 'userid': Meteor.userId()} ).count();
         if (hasSignedUp>0) {
@@ -137,6 +142,30 @@ if (Meteor.isClient) {
       }
 
   });
+
+  Template.restaurantCreateDeal.events({
+    "submit .post-deal": function() {
+      event.preventDefault();
+      console.log("Submit a deal button clicked");
+
+      var time = event.target.time.value;
+      var tables = event.target.tables.value;
+      var discount = event.target.discount.value;
+      var partysize = event.target.partysize.value;
+      var userid = Meteor.userId();
+
+      Deals.insert({
+        time: time,
+        tables: tables,
+        discount: discount,
+        partysize: partysize,
+        userid: userid,
+        createdAt: new Date()
+      });
+    }
+  });
+
+
 
   Template.signUp.events({
     "submit .new-user": function() {
