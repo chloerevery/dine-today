@@ -2,3 +2,12 @@
 .hidden {
 	display: none;
 }
+
+#restaurantname {
+	color: #5cb85c;
+}
+
+#settingvar {
+	color: #f0ad4e;
+}
+
