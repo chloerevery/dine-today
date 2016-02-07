@@ -9,8 +9,12 @@
   <div class="text-center">
   {{> loginButtons}}
 
-  {{> dd}}
-  {{> rest}}
+
+  {{#if isRestaurant}}
+    {{> postdeal}}
+  {{else}}
+    {{> dd}}
+  {{/if}}
   </div>
   
 
@@ -55,9 +59,9 @@
   </div><br>
 </template>
 
-<template name="rest">
+<template name="postdeal">
   <div class="restaurants">
-    <button type="button" class="btn btn-info">Restaurants</button>
+    <button type="button" class="btn btn-info">Post a Deal</button>
   </div>
 </template>
 
@@ -66,10 +70,13 @@
   <h4>Almost done! We just need a little more information about you.</h4>
       <form class="new-user">
       <fieldset class="form-group">
-        <label for="restaurant">
-        <input type="checkbox" value="" class="form-control" id="restaurant">
-        I represent a restaurant
+        <label class="radio-inline">
+          <input type="radio" name="userType" value="customer"> I am a diner
         </label>
+        <label class="radio-inline">
+          <input type="radio" name="userType" value="restaurant"> I represent a restaurant
+        </label>
+
       </fieldset>
       <fieldset class="form-group">
         <label for="name">Name</label>
