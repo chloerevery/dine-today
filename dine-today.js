@@ -14,9 +14,9 @@ if (Meteor.isClient) {
 
         return Customers.find({});
       },
-
+      
       deals: function () {
-
+        console.log("finding all deals");
         return Deals.find({});
       },
 
@@ -44,6 +44,22 @@ if (Meteor.isClient) {
 
     });
 
+    Template.dealsList.helpers({
+      deals: function () {
+          console.log("finding all deals");
+          return Deals.find({});
+        }
+
+    });
+
+   Template.restaurantCreateDeal.helpers({
+      
+      customers: function () {
+
+        return Customers.find( { 'userid': Meteor.userId()} );
+      }
+   });
+
   Accounts.ui.config({
         passwordSignupFields: "USERNAME_ONLY"
       });
@@ -55,6 +71,7 @@ if (Meteor.isClient) {
    }
 
   });
+
 
   Template.settings.events({
     "click .settingsName": function(event) {
@@ -144,7 +161,7 @@ if (Meteor.isClient) {
   });
 
   Template.restaurantCreateDeal.events({
-    "submit .post-deal": function() {
+    "submit .post-deal": function(event) {
       event.preventDefault();
       console.log("Submit a deal button clicked");
 
@@ -153,8 +170,13 @@ if (Meteor.isClient) {
       var discount = event.target.discount.value;
       var partysize = event.target.partysize.value;
       var userid = Meteor.userId();
+      var restaurantname = this.name;
+      var id = this._id;
+      console.log("Restaurant name: " + restaurantname);
+      console.log("id: " + id);
 
       Deals.insert({
+        restaurantname: restaurantname,
         time: time,
         tables: tables,
         discount: discount,
@@ -162,7 +184,17 @@ if (Meteor.isClient) {
         userid: userid,
         createdAt: new Date()
       });
+
+      // clear form
+      event.target.time.value = "";
+      event.target.tables.value = "";
+      event.target.discount.value = "";
+      event.target.partysize.value = "";
+      $("#restaurants").toggleClass("hidden");
+
     }
+
+
   });
 
 
@@ -192,13 +224,13 @@ if (Meteor.isClient) {
 
       console.log("Added new user to the database with values:")
       console.log(name + " " + phone + " " + email + " " + allergies + " " + zip);
-
       // clear form
       event.target.name.value = "";
       event.target.phone.value = "";
       event.target.email.value = "";
       event.target.allergies.value = "";
       event.target.zip.value = "";
+
 
     }
   });
@@ -219,12 +251,33 @@ if (Meteor.isClient) {
 
   Template.dd.events({
     'click .dailyDeals': function() {
-       $("#dailyDeals").toggleClass("hidden"); 
+      console.log("you clicked on daily deals button");
+       $("#claimDeal").toggleClass("hidden"); 
      }
+
+     
   });
 
-}
+  Template.dealsList.events({
+    'click .claimDeal': function() {
+       $("#dailyDeal").toggleClass("hidden"); 
+     },
 
+     "submit": function(event) {
+      console.log("you submitted a claim!");
+
+      event.preventDefault();
+      console.log("you submitted a claim");
+      var id = this._id;
+      var time = this.time;
+      console.log("id of deal: " + id);
+      console.log("time of deal: " + time);
+    }
+  });
+
+
+
+}
 
 
 if (Meteor.isServer) {
