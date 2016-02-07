@@ -31,7 +31,13 @@
 
 
 <div id="dailyDeals" class="hidden">
-  {{> dealDetail}}
+    {{#each deals}}
+      Percent off: {{discount}}%
+      Tables left at this price: {{tables}}
+      Time: {{time}}
+      Party size: {{partysize}}
+      
+    {{/each}}
 </div>
   <!-- settings -->
   <div id="settings" class="">
@@ -41,7 +47,6 @@
   {{> paymentInfo}}
   <!-- restaurant portal -->
 <div id="restaurants" class="hidden">
-  {{> restaurantLogin}}
   {{> restaurantProfile}}
   {{> restaurantReservations}}
   {{> restaurantCreateDeal}}
@@ -240,5 +245,25 @@
 </template>
 
 <template name="restaurantCreateDeal">
-  <p>Create a deal here.</p>
+  <h3>Post a Deal</h3>
+  <form class="post-deal">
+      <fieldset class="form-group">
+        <label for="party-size">Party Size</label>
+        <input type="text" class="form-control" id="partysize">
+      </fieldset>
+       <fieldset class="form-group">
+        <label for="discount">% Off</label>
+        <input type="text" class="form-control" id="discount">
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="time">Time</label>
+        <input type="time" class="form-control" id="time">
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="tables">Number of Tables</label>
+        <input type="text" class="form-control" id="tables">
+      </fieldset>
+      
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 </template>
