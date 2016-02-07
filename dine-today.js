@@ -11,7 +11,6 @@ if (Meteor.isClient) {
       //   { text: "This is deal 3" }
       // ]
       customers: function () {
-
         return Customers.find({});
       },
       
@@ -44,11 +43,65 @@ if (Meteor.isClient) {
 
     });
 
+    Template.myReservations.helpers({
+      deals: function() {
+        var userid = Meteor.userId();
+        console.log("querying deals to bring you your reservations");
+        console.log("userid querying with: " + userid);
+        return Deals.find({'claimants' : {$in: [userid]}});
+      }
+    });
+
+    Template.takenDeals.helpers({
+      deals: function() {
+        var userid = Meteor.userId();
+        console.log("querying deals to bring you your customers");
+        console.log("querying deals with userid " + userid);
+        return Deals.find({'userid' : userid});
+      },
+
+      customers: function () {
+        claimants = this.claimants;
+        console.log("claimants " + claimants);
+        return claimants;
+      }
+
+
+
+
+        // var claimantNames = new Array();
+        // //create new array to hold names of people who have reserved
+        // for (var c in claimants) { //for each item c in claimants
+        //   console.log("querying with userid " + claimants[c]);
+        //   var customerName = Customers.find({'userid': claimants[c]});
+        //   return customerName;
+        //   // console.log("customerName is " + customerName);
+        //   // claimantNames.push(customerName);
+        //   // console.log("pushed " + customerName + "to claimantNames");
+        // }
+        // // return claimantNames;
+    
+
+    });
+    
+
     Template.dealsList.helpers({
       deals: function () {
           console.log("finding all deals");
           return Deals.find({});
+        },
+
+      dealsAvailable: function(id) { //returns true if a deal is sold out 
+        //if deal's tables <= 0 return true
+        console.log("deal id!: " + id);
+        if (Deals.find({ tables: { $gt: 0 }, _id: id }).count() > 0) {
+          console.log("Fuck it, I'll take the deal!");
+          return true;
+        } else {
+          console.log("no deal, howie!")
+          return false;
         }
+      }
 
     });
 
@@ -166,7 +219,7 @@ if (Meteor.isClient) {
       console.log("Submit a deal button clicked");
 
       var time = event.target.time.value;
-      var tables = event.target.tables.value;
+      var tables = parseInt(event.target.tables.value);
       var discount = event.target.discount.value;
       var partysize = event.target.partysize.value;
       var userid = Meteor.userId();
@@ -174,6 +227,7 @@ if (Meteor.isClient) {
       var id = this._id;
       console.log("Restaurant name: " + restaurantname);
       console.log("id: " + id);
+      var claimants = new Array();
 
       Deals.insert({
         restaurantname: restaurantname,
@@ -182,8 +236,12 @@ if (Meteor.isClient) {
         discount: discount,
         partysize: partysize,
         userid: userid,
+        claimants: claimants,
         createdAt: new Date()
       });
+
+        
+      
 
       // clear form
       event.target.time.value = "";
@@ -254,8 +312,20 @@ if (Meteor.isClient) {
       console.log("you clicked on daily deals button");
        $("#claimDeal").toggleClass("hidden"); 
      }
-
      
+  });
+
+
+  Template.viewMyReservations.events({
+    'click .myReservations': function() {
+      $("#myReservations").toggleClass("hidden");
+    }
+  });
+
+  Template.viewTakenDeals.events({
+    'click .takenDeals': function() {
+      $("#takenDeals").toggleClass("hidden");
+    }
   });
 
   Template.dealsList.events({
@@ -263,16 +333,25 @@ if (Meteor.isClient) {
        $("#dailyDeal").toggleClass("hidden"); 
      },
 
-     "submit": function(event) {
-      console.log("you submitted a claim!");
+     "click .dealButton": function(event) {
+        console.log("you submitted a claim!");
 
-      event.preventDefault();
-      console.log("you submitted a claim");
-      var id = this._id;
-      var time = this.time;
-      console.log("id of deal: " + id);
-      console.log("time of deal: " + time);
-    }
+        event.preventDefault();
+        console.log("you submitted a claim");
+        var dealid = this._id;
+        console.log("id of deal: " + dealid);
+        var userid = Meteor.userId();
+        console.log("id of user: " + userid);
+        var newclaimants = this.claimants;
+        newclaimants.push(userid);
+        var tablesremaining = this.tables;
+        tablesremaining--;
+
+        Deals.update({
+            _id: dealid}, {$set: {claimants: newclaimants, tables: tablesremaining}}); //claimants now has the claimants' userids
+          
+        }
+      
   });
 
 
