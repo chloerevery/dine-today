@@ -210,6 +210,13 @@ if (Meteor.isClient) {
      }
   });
 
+  Template.selectsettings.events({
+    'click .settings': function() {
+      $("#settings").toggleClass("hidden");
+    }
+
+  });
+
   Template.dd.events({
     'click .dailyDeals': function() {
        $("#dailyDeals").toggleClass("hidden"); 
