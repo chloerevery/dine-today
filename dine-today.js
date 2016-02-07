@@ -218,7 +218,7 @@ if (Meteor.isClient) {
       event.preventDefault();
       console.log("Submit a deal button clicked");
 
-      var time = event.target.time.value;
+      var time = event.target.time.value
       var tables = parseInt(event.target.tables.value);
       var discount = event.target.discount.value;
       var partysize = event.target.partysize.value;
