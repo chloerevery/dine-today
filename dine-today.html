@@ -8,7 +8,7 @@
   <h1 class="text-center">Dine Today</h1>
   <div class="text-center">
   {{> loginButtons}}
-
+  {{#if currentUser}}
 
   {{#if isRestaurant}}
     {{> postdeal}}
@@ -16,10 +16,6 @@
     {{> dd}}
   {{/if}}
   <br>
-  {{> selectsettings}}
-  </div>
-  
-
 
 <div id="signUp"> 
 {{#if hasSignedUp}}
@@ -28,22 +24,13 @@
 {{/if}}
 </div>
 
-
-
-
-
-<div id="dailyDeals" class="hidden">
-    {{#each deals}}
-      Percent off: {{discount}}%
-      Tables left at this price: {{tables}}
-      Time: {{time}}
-      Party size: {{partysize}}
-      
-    {{/each}}
+<div id="claimDeal" class="hidden">
+  {{> dealsList}}
 </div>
+
   <!-- settings -->
   <div id="settings" class="hidden">
-  	{{> settings}} 
+    {{> settings}} 
   </div>
   {{> myReservations}}
   {{> paymentInfo}}
@@ -53,8 +40,12 @@
   {{> restaurantReservations}}
   {{> restaurantCreateDeal}}
 </div>
+ {{> selectsettings}}
 
 
+
+{{/if}}
+</div>
 
 <!-- <script src="js/jquery-1.12.0.min.js" type="text/javascript"></script> -->
 <!-- <script src="js/bootstrap.min.js" type="text/javascript"></script> -->
@@ -122,7 +113,7 @@
 </template>
 
 <template name="selectsettings">
-	<div class="settings">
+  <div class="settings">
     <button type="button" class="btn btn-info">Settings</button>
   </div>
 </template>
@@ -136,6 +127,7 @@
     {{#each customers}}
       {{name}}
     {{/each}}
+
     <button type="button" class="btn btn-link btn-small">Edit</button>
 
   </div>
@@ -253,7 +245,10 @@
 
 <template name="restaurantCreateDeal">
   <h3>Post a Deal</h3>
+  <div id="creatingDeal">
+  {{#each customers}}
   <form class="post-deal">
+  
       <fieldset class="form-group">
         <label for="party-size">Party Size</label>
         <input type="text" class="form-control" id="partysize">
@@ -272,5 +267,22 @@
       </fieldset>
       
       <button type="submit" class="btn btn-primary">Submit</button>
+
     </form>
+    {{/each}}
+
+    </div>
+</template>
+
+<template name="dealsList">
+      hello
+      {{#each deals}}
+        Restaurant: {{restaurantname}}
+        Percent off: {{discount}}%
+        Tables left at this price: {{tables}}
+        Time: {{time}}
+        Party size: {{partysize}} <button type="submit" class="btn btn-secondary">Claim this Deal</button>
+        <br><br>
+        
+      {{/each}}
 </template>
