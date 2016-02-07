@@ -12,8 +12,10 @@
 
   {{#if isRestaurant}}
     {{> postdeal}}
+    {{> viewTakenDeals}}
   {{else}}
     {{> dd}}
+    {{> viewMyReservations}}
   {{/if}}
   <br>
 
@@ -32,7 +34,12 @@
   <div id="settings" class="hidden">
     {{> settings}} 
   </div>
-  {{> myReservations}}
+  <div id="myReservations" class="hidden">
+    {{> myReservations}}
+  </div>
+  <div id="takenDeals" class="hidden">
+    {{> takenDeals}}
+  </div>
   {{> paymentInfo}}
   <!-- restaurant portal -->
 <div id="restaurants" class="hidden">
@@ -54,6 +61,18 @@
 <template name="dd">
   <div class="dailyDeals">
     <button type="button" class="btn btn-secondary">Daily Deals</button>
+  </div><br>
+</template>
+
+<template name="viewMyReservations">
+  <div class="myReservations">
+    <button type="button" class="btn btn-secondary">My Reservations</button>
+  </div><br>
+</template>
+
+<template name="viewTakenDeals">
+  <div class="takenDeals">
+    <button type="button" class="btn btn-secondary">Taken Deals</button>
   </div><br>
 </template>
 
@@ -224,7 +243,35 @@
 
 
 <template name="myReservations">
-  <p>View your reservations here.</p>
+<h4>My Upcoming Reservations</h4>
+{{#each deals}}
+  <strong>{{restaurantname}}</strong>
+  <br><br>
+  Percent off: {{discount}}%
+  <br><br>
+  Time: {{time}}
+  <br><br>
+  Party size: {{partysize}} 
+  <br><br><br>
+
+{{/each}}
+</template>
+
+<template name="takenDeals">
+<h4>Today's Deals</h4>
+  {{#each deals}}
+    <strong>{{time}}</strong>
+    <br><br>
+    Percent off: {{discount}}%
+    <br><br>
+    Party size: {{partysize}} 
+    <br><br>
+    Number sold: {{tablessold}}
+    <br><br>
+    Customers: {{claimants}}
+    <br><br><br>
+  {{/each}}
+
 </template>
 
 <template name="paymentInfo">
@@ -275,14 +322,18 @@
 </template>
 
 <template name="dealsList">
-      hello
       {{#each deals}}
-        Restaurant: {{restaurantname}}
-        Percent off: {{discount}}%
-        Tables left at this price: {{tables}}
-        Time: {{time}}
-        Party size: {{partysize}} <button type="submit" class="btn btn-secondary">Claim this Deal</button>
-        <br><br>
-        
+        {{#if dealsAvailable _id}}
+          Restaurant: {{restaurantname}}
+          Percent off: {{discount}}%
+          Tables left at this price: {{tables}}
+          Time: {{time}}
+          Party size: {{partysize}} 
+          <div class="dealButton">
+            <button type="button" class="btn btn-secondary">Claim this Deal</button>
+            </div>
+          <br><br>
+        {{/if}}
       {{/each}}
 </template>
+
