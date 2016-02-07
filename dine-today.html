@@ -10,7 +10,6 @@
   {{> loginButtons}}
 
   {{> dd}}
-  {{> si}}
   {{> su}}
   {{> rest}}
   
@@ -19,15 +18,15 @@
   {{> signUp}}
 </div>
 
-<div id="signIn" class="hidden">
-  {{> signIn}}
-</div>
+
 
 <div id="dailyDeals" class="hidden">
   {{> dealDetail}}
 </div>
   <!-- settings -->
+  <div id="settings" class="">
   {{> settings}} 
+  </div>
   {{> myReservations}}
   {{> paymentInfo}}
   <!-- restaurant portal -->
@@ -49,11 +48,7 @@
     <button type="button" class="btn btn-secondary">Daily Deals</button>
   </div><br>
 </template>
-<template name="si">
-  <div class="signIn">
-    <button type="button" class="btn btn-success">Sign In</button>
-  </div><br>
-</template>
+
 <template name="su">
   <div class="signUp">
     <button type="button" class="btn btn-primary">Sign Up</button>
@@ -69,6 +64,12 @@
 <template name="signUp">
   <h4>Almost done! We just need a little more information about you.</h4>
       <form class="new-user">
+      <fieldset class="form-group">
+        <label for="restaurant">
+        <input type="checkbox" value="" class="form-control" id="restaurant">
+        I represent a restaurant
+        </label>
+      </fieldset>
       <fieldset class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name">
@@ -94,11 +95,6 @@
     </form>
 </template>
 
-
-<template name="signIn">
-  <p>Sign in here</p>
-</template>
-
   
 
 <template name="deal">
@@ -110,32 +106,109 @@
 </template>
 
 <template name="settings">
-<h5>Settings</h5>
-  <p>Name: </p>
-  {{#each customers}}
-    {{name}}
-  {{/each}}
+<h3>Settings</h3>
+
   
-  <p>Phone number: </p>
-  {{#each customers}}
-    {{phone}}
-  {{/each}}
+  <div class="settingsName">
+  
+    Name:
+    {{#each customers}}
+      {{name}}
+    {{/each}}
+    <button type="button" class="btn btn-link btn-small">Edit</button>
 
-  <p>Email: </p>
-  {{#each customers}}
-    {{email}}
-  {{/each}}
+  </div>
 
-  <p>Allergies: </p>
+  <div class="changeName hidden">
   {{#each customers}}
-    {{allergies}}
-  {{/each}}
+    <form class="change-name">
+      <fieldset class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name">
+      </fieldset>
+      <button type="submit" class="btn btn-primary">Change Name</button>
+    </form> 
+    {{/each}}
+  </div>
+  
+  <div class="settingsPhone">
+    Phone number:
+    {{#each customers}}
+      {{phone}}
+    {{/each}}
+    <button type="button" class="btn btn-link btn-small">Edit</button>
+  </div>
 
-  <p>Zip Code: </p>
+  <div class="changePhone hidden">
   {{#each customers}}
-    {{zip}}
+    <form class="change-phone">
+      <fieldset class="form-group">
+        <label for="phone">Phone</label>
+        <input type="number" class="form-control" id="phone">
+      </fieldset>
+      <button type="submit" class="btn btn-primary">Change Phone</button>
+    </form> 
+    {{/each}}
+  </div>
+
+  <div class="settingsEmail">
+    Email:
+    {{#each customers}}
+      {{email}}
+    {{/each}}
+    <button type="button" class="btn btn-link btn-small">Edit</button>
+  </div>
+  <div class="changeEmail hidden">
+  {{#each customers}}
+    <form class="change-email">
+      <fieldset class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email">
+      </fieldset>
+      <button type="submit" class="btn btn-primary">Change Email</button>
+    </form> 
   {{/each}}
+  </div>
+
+  <div class="settingsAllergies">
+    Allergies:
+    {{#each customers}}
+      {{allergies}}
+    {{/each}}
+    <button type="button" class="btn btn-link btn-small">Edit</button>
+  </div>
+  <div class="changeAllergies hidden">
+  {{#each customers}}
+    <form class="change-allergies">
+      <fieldset class="form-group">
+        <label for="allergies">Change Allergies</label>
+        <input type="text" class="form-control" id="allergies">
+      </fieldset>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form> 
+  {{/each}}
+  </div>
+
+  <div class="settingsZip">
+    Zip Code:
+    {{#each customers}}
+      {{zip}}
+    {{/each}}
+    <button type="button" class="btn btn-link btn-small">Edit</button>
+  </div>
+    <div class="changeZip hidden">
+    {{#each customers}}
+    <form class="change-zip">
+      <fieldset class="form-group">
+        <label for="zip">Zip Code</label>
+        <input type="text" class="form-control" id="zip">
+      </fieldset>
+      <button type="submit" class="btn btn-primary">Change Zip Code</button>
+    </form> 
+    {{/each}}
+  </div>
 </template>
+
 
 <template name="myReservations">
   <p>View your reservations here.</p>
