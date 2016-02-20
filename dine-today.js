@@ -312,15 +312,6 @@ if (Meteor.isClient) {
 
   });
 
-  Template.dd.events({
-    'click .dailyDeals': function() {
-      console.log("you clicked on daily deals button");
-       $("#claimDeal").toggleClass("hidden"); 
-     }
-     
-  });
-
-
   Template.viewMyReservations.events({
     'click .myReservations': function() {
       $("#myReservations").toggleClass("hidden");
