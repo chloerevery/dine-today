@@ -39,6 +39,19 @@ if (Meteor.isClient) {
           console.log("she's a customer");
           return false
         }
+      },
+
+      isCustomer: function() {
+        //if is restaurant, show restaurant menu (post deal)
+        //if is diner, show diner menu (deals)
+        var isCustomer = Customers.find( { 'userid': Meteor.userId(), 'usertype': 'customer'} ).count();
+        if (isCustomer>0) {
+          console.log("she's a customer");
+          return true;
+        } else {
+          console.log("she's a restaurant");
+          return false
+        }
       }
 
     });

@@ -15,9 +15,9 @@
   {{#if isRestaurant}}
     {{> postdeal}}
     {{> viewTakenDeals}}
-  {{else if isCustomer}}
+  {{/if}}
+  {{#if isCustomer}}
     {{> dealsList}}
-    
     {{> viewMyReservations}}
   {{/if}}
   <br>
