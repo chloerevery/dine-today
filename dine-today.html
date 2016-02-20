@@ -9,7 +9,7 @@
   <br>
   <img class="img-responsive" src="http://i.imgur.com/8CeQpO2.png"/>
   <br>
-  {{> loginButtons}}<br><br>
+  
   {{#if currentUser}}
 
   {{#if isRestaurant}}
@@ -44,8 +44,12 @@
 <div id="restaurants" class="hidden">
   {{> restaurantCreateDeal}}
 </div>
+
+<div id="infoSettings">
+{{> selectsettings}}
+</div>
  <!-- settings -->
- {{> selectsettings}}
+ 
   <div id="settings" class="hidden">
     {{> settings}} 
   </div>
@@ -133,10 +137,11 @@
 </template>
 
 <template name="selectsettings">
-  <div class="settings">
-    <button type="button" class="btn btn-secondary">Settings</button>
-  </div>
+  
+    {{> loginButtons}} <button type="button" class="btn btn-link btn-sm settings">Settings</button>
+
 </template>
+
 <template name="settings">
 
   
@@ -320,8 +325,8 @@
             <button type="button" class="btn btn-warning btn-sm">Claim this Deal</button>
             </div>
           <br><br>
-        {{else}}
-          <strong>No deals available right now :(</strong>
+        <!-- {{else}}
+          <strong>No deals available right now :(</strong> -->
         {{/if}}
       {{/each}}
 </template>
