@@ -64,6 +64,11 @@ if (Meteor.isClient) {
         claimants = this.claimants;
         console.log("claimants " + claimants);
         return claimants;
+      },
+
+      tablessold: function() {
+        claimants = this.claimants;
+        return claimants.length;
       }
 
 
