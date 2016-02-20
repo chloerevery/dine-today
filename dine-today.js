@@ -329,9 +329,7 @@ if (Meteor.isClient) {
   });
 
   Template.dealsList.events({
-    'click .claimDeal': function() {
-       $("#dailyDeal").toggleClass("hidden"); 
-     },
+    
 
      "click .dealButton": function(event) {
         console.log("you submitted a claim!");

@@ -16,10 +16,8 @@
     {{> postdeal}}
     {{> viewTakenDeals}}
   {{else}}
-    {{> dd}}
-    <div id="claimDeal" class="hidden">
-      {{> dealsList}}
-    </div>
+    {{> dealsList}}
+    
     {{> viewMyReservations}}
   {{/if}}
   <br>
@@ -66,15 +64,10 @@
 <!-- <script src="js/bootstrap.min.js" type="text/javascript"></script> -->
 </body>
 
-<template name="dd">
-  <div class="dailyDeals">
-    <button type="button" class="btn btn-success">Daily Deals</button>
-  </div><br>
-</template>
 
 <template name="viewMyReservations">
   <div class="myReservations">
-    <button type="button" class="btn btn-primary">My Reservations</button>
+    <button type="button" class="btn btn-primary">Claimed Deals</button>
   </div>
 </template>
 
