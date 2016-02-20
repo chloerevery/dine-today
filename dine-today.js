@@ -170,6 +170,17 @@ if (Meteor.isClient) {
       $(".changeZip").toggleClass("hidden");
     },
 
+    "click .settingsYelp": function(event) {
+      $(".settingsYelp").toggleClass("hidden");
+      $(".changeYelp").toggleClass("hidden");
+    },
+
+    "click .settingsWebsite": function(event) {
+      console.log("so you want to change your website?");
+      $(".settingsWebsite").toggleClass("hidden");
+      $(".changeWebsite").toggleClass("hidden");
+    },
+
     //change setting button clicks
     "submit .change-name": function(event) {
       event.preventDefault();
@@ -227,6 +238,28 @@ if (Meteor.isClient) {
         _id: id}, {$set: {zip: zip}});
       $(".settingsZip").toggleClass("hidden");
       $(".changeZip").toggleClass("hidden");
+      },
+
+      "submit .change-yelp": function() {
+      event.preventDefault();
+      console.log("Submit button clicked");
+      var yelp = event.target.yelp.value;
+      var id = this._id;
+      Customers.update({
+        _id: id}, {$set: {yelp: yelp}});
+      $(".settingsYelp").toggleClass("hidden");
+      $(".changeYelp").toggleClass("hidden");
+      },
+
+      "submit .change-website": function() {
+      event.preventDefault();
+      console.log("Submit button clicked");
+      var website = event.target.website.value;
+      var id = this._id;
+      Customers.update({
+        _id: id}, {$set: {website: website}});
+      $(".settingsWebsite").toggleClass("hidden");
+      $(".changeWebsite").toggleClass("hidden");
       }
 
   });
@@ -286,6 +319,8 @@ if (Meteor.isClient) {
       var email = event.target.email.value;
       var allergies = event.target.allergies.value;
       var zip = event.target.zip.value;
+      var yelp = event.target.yelp.value;
+      var website = event.target.website.value;
       var userid = Meteor.userId();
       Customers.insert({
         usertype: isRestaurant,
@@ -295,6 +330,8 @@ if (Meteor.isClient) {
         email: email,
         allergies: allergies,
         zip: zip,
+        website: website,
+        yelp: yelp,
         createdAt: new Date()
       });
 

@@ -102,7 +102,7 @@
       </fieldset>
        <fieldset class="form-group">
         <label for="phone">Phone Number</label>
-        <input type="number" class="form-control" id="phone">
+        <input type="tel" class="form-control" id="phone">
       </fieldset>
       <fieldset class="form-group">
         <label for="email">Email</label>
@@ -116,6 +116,14 @@
       <fieldset class="form-group">
         <label for="zip">Zip Code</label>
         <input type="zip" class="form-control" id="zip">
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="website">Website</label>
+        <input type="url" class="form-control" id="website">
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="yelp">Link to Yelp page</label>
+        <input type="url" class="form-control" id="yelp">
       </fieldset>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
@@ -239,6 +247,45 @@
     </form> 
     {{/each}}
   </div>
+
+   <div class="settingsYelp">
+    Link to Yelp page:
+    {{#each customers}}
+      <span id="settingvar">{{yelp}}</span>
+    {{/each}}
+    <button type="button" class="btn btn-link btn-sm">Edit</button>
+  </div>
+    <div class="changeYelp hidden">
+    {{#each customers}}
+    <form class="change-yelp">
+      <fieldset class="form-group">
+        <label for="yelp">Link to Yelp page:</label>
+        <input type="text" class="form-control" id="yelp">
+      </fieldset>
+      <button type="submit" class="btn btn-primary btn-xs">Change Yelp link</button>
+    </form> 
+    {{/each}}
+  </div>
+
+   <div class="settingsWebsite">
+    Website:
+    {{#each customers}}
+      <span id="settingvar">{{website}}</span>
+    {{/each}}
+    <button type="button" class="btn btn-link btn-sm">Edit</button>
+  </div>
+    <div class="changeWebsite hidden">
+    {{#each customers}}
+    <form class="change-website">
+      <fieldset class="form-group">
+        <label for="website">Website</label>
+        <input type="text" class="form-control" id="website">
+      </fieldset>
+      <button type="submit" class="btn btn-primary btn-xs">Change Website</button>
+    </form> 
+    {{/each}}
+  </div>
+
 </template>
 
 
