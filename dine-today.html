@@ -15,7 +15,7 @@
   {{#if isRestaurant}}
     {{> postdeal}}
     {{> viewTakenDeals}}
-  {{else}}
+  {{else if isCustomer}}
     {{> dealsList}}
     
     {{> viewMyReservations}}
@@ -320,6 +320,8 @@
             <button type="button" class="btn btn-warning btn-sm">Claim this Deal</button>
             </div>
           <br><br>
+        {{else}}
+          <strong>No deals available right now :(</strong>
         {{/if}}
       {{/each}}
 </template>
