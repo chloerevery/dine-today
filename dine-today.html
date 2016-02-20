@@ -5,38 +5,60 @@
 
 </head>
 <body>
-  <h1 class="text-center">Dine Today</h1>
-  <div class="text-center">
-  {{> loginButtons}}
+  <div class="text-center white container col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">
+  <br>
+  <img class="img-responsive" src="http://i.imgur.com/8CeQpO2.png"/>
+  <br>
+  {{> loginButtons}}<br><br>
+  {{#if currentUser}}
 
-  {{> dd}}
-  {{> si}}
-  {{> su}}
-  {{> rest}}
+  {{#if isRestaurant}}
+    {{> postdeal}}
+    {{> viewTakenDeals}}
+  {{else}}
+    {{> dd}}
+    <div id="claimDeal" class="hidden">
+      {{> dealsList}}
+    </div>
+    {{> viewMyReservations}}
+  {{/if}}
+  <br>
   
 
-<div id="signUp" class="hidden"> 
+
+<div id="signUp"> 
+{{#if hasSignedUp}}
+{{else}}
   {{> signUp}}
+{{/if}}
 </div>
 
-<div id="signIn" class="hidden">
-  {{> signIn}}
-</div>
 
-<div id="dailyDeals" class="hidden">
-  {{> dealDetail}}
-</div>
-  <!-- settings -->
-  {{> settings}} 
-  {{> myReservations}}
-  {{> paymentInfo}}
+
+  
+  <div id="myReservations" class="hidden">
+    {{> myReservations}}
+  </div>
+  <div id="takenDeals" class="hidden">
+    {{> takenDeals}}
+  </div>
   <!-- restaurant portal -->
 <div id="restaurants" class="hidden">
-  {{> restaurantLogin}}
-  {{> restaurantProfile}}
-  {{> restaurantReservations}}
   {{> restaurantCreateDeal}}
 </div>
+ <!-- settings -->
+ {{> selectsettings}}
+  <div id="settings" class="hidden">
+    {{> settings}} 
+  </div>
+
+
+
+{{/if}}
+
+<br>
+<span id="credits">Kitchen Pack graphic by <a href="http://www.freepik.com/">Freepik</a> from <a href="http://www.flaticon.com/">Flaticon</a><br>is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>. Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a></span>
+<br><br>
 </div>
 
 
@@ -46,29 +68,41 @@
 
 <template name="dd">
   <div class="dailyDeals">
-    <button type="button" class="btn btn-secondary">Daily Deals</button>
+    <button type="button" class="btn btn-success">Daily Deals</button>
   </div><br>
 </template>
-<template name="si">
-  <div class="signIn">
-    <button type="button" class="btn btn-success">Sign In</button>
-  </div><br>
-</template>
-<template name="su">
-  <div class="signUp">
-    <button type="button" class="btn btn-primary">Sign Up</button>
-  </div><br>
-</template>
-<template name="rest">
-  <div class="restaurants">
-    <button type="button" class="btn btn-info">Restaurants</button>
+
+<template name="viewMyReservations">
+  <div class="myReservations">
+    <button type="button" class="btn btn-primary">Claimed Deals</button>
   </div>
+</template>
+
+<template name="viewTakenDeals">
+  <div class="takenDeals">
+    <button type="button" class="btn btn-success">Taken Deals</button>
+  </div>
+</template>
+
+<template name="postdeal">
+  <div class="restaurants">
+    <button type="button" class="btn btn-info">Post a Deal</button>
+  </div><br>
 </template>
 
 
 <template name="signUp">
   <h4>Almost done! We just need a little more information about you.</h4>
       <form class="new-user">
+      <fieldset class="form-group">
+        <label class="radio-inline">
+          <input type="radio" name="userType" value="customer"> I am a diner
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="userType" value="restaurant"> I represent a restaurant
+        </label>
+
+      </fieldset>
       <fieldset class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name">
@@ -83,8 +117,8 @@
         <small class="text-muted">We'll never share your email with anyone else.</small>
       </fieldset>
       <fieldset class="form-group">
-        <label for="allergies">Food Allergies</label>
-        <textarea class="form-control" id="allergies" rows="3" placeholder="Please enter food allergies, separated by a comma."></textarea>
+        <label for="allergies">Dietary restrictions</label>
+        <textarea class="form-control" id="allergies" rows="3" placeholder="Please enter any dietary restrictions."></textarea>
       </fieldset>
       <fieldset class="form-group">
         <label for="zip">Zip Code</label>
@@ -94,10 +128,6 @@
     </form>
 </template>
 
-
-<template name="signIn">
-  <p>Sign in here</p>
-</template>
 
   
 
@@ -109,34 +139,195 @@
   <p>View deal details here.</p>
 </template>
 
-<template name="settings">
-  <p>Name: </p>{{name}}
-  <p>Phone number: </p>{{phone}}
-  <p>Email: </p>{{email}}
-  <p>Allergies: </p>{{allergies}}
-  <p>Zip Code: </p>{{zip}}
+<template name="selectsettings">
+  <div class="settings">
+    <button type="button" class="btn btn-secondary">Settings</button>
+  </div>
 </template>
+<template name="settings">
+
+  
+  <div class="settingsName">
+  
+    Name:
+    {{#each customers}}
+      <span id="settingvar">{{name}}</span>
+    {{/each}}
+
+    <button type="button" class="btn btn-link btn-sm">Edit</button>
+
+  </div>
+
+  <div class="changeName hidden">
+  {{#each customers}}
+    <form class="change-name">
+      <fieldset class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name">
+      </fieldset>
+      <button type="submit" class="btn btn-primary btn-xs">Change Name</button>
+    </form> 
+    {{/each}}
+  </div>
+  
+  <div class="settingsPhone">
+    Phone number:
+    {{#each customers}}
+      <span id="settingvar">{{phone}}</span>
+    {{/each}}
+    <button type="button" class="btn btn-link btn-sm">Edit</button>
+  </div>
+
+  <div class="changePhone hidden">
+  {{#each customers}}
+    <form class="change-phone">
+      <fieldset class="form-group">
+        <label for="phone">Phone</label>
+        <input type="number" class="form-control" id="phone">
+      </fieldset>
+      <button type="submit" class="btn btn-primary btn-xs">Change Phone</button>
+    </form> 
+    {{/each}}
+  </div>
+
+  <div class="settingsEmail">
+    Email:
+    {{#each customers}}
+      <span id="settingvar">{{email}}</span>
+    {{/each}}
+    <button type="button" class="btn btn-link btn-sm">Edit</button>
+  </div>
+  <div class="changeEmail hidden">
+  {{#each customers}}
+    <form class="change-email">
+      <fieldset class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email">
+      </fieldset>
+      <button type="submit" class="btn btn-primary btn-xs">Change Email</button>
+    </form> 
+  {{/each}}
+  </div>
+
+  <div class="settingsAllergies">
+    Dietary Restrictions:
+    {{#each customers}}
+      <span id="settingvar">{{allergies}}</span>
+    {{/each}}
+    <button type="button" class="btn btn-link btn-sm">Edit</button>
+  </div>
+  <div class="changeAllergies hidden">
+  {{#each customers}}
+    <form class="change-allergies">
+      <fieldset class="form-group">
+        <label for="allergies">Dietary Restrictions</label>
+        <input type="text" class="form-control" id="allergies">
+      </fieldset>
+      <button type="submit" class="btn btn-primary btn-xs">Change Dietary Restrictions</button>
+    </form> 
+  {{/each}}
+  </div>
+
+  <div class="settingsZip">
+    Zip Code:
+    {{#each customers}}
+      <span id="settingvar">{{zip}}</span>
+    {{/each}}
+    <button type="button" class="btn btn-link btn-sm">Edit</button>
+  </div>
+    <div class="changeZip hidden">
+    {{#each customers}}
+    <form class="change-zip">
+      <fieldset class="form-group">
+        <label for="zip">Zip Code</label>
+        <input type="text" class="form-control" id="zip">
+      </fieldset>
+      <button type="submit" class="btn btn-primary btn-xs">Change Zip Code</button>
+    </form> 
+    {{/each}}
+  </div>
+</template>
+
 
 <template name="myReservations">
-  <p>View your reservations here.</p>
+{{#each deals}}
+  <div id="restaurantname"><strong>{{restaurantname}}</strong></div>
+  <strong>Percent off:</strong> {{discount}}%
+  <br>
+  <strong>Time:</strong> {{time}}
+  <br>
+  <strong>Party size:</strong> {{partysize}} 
+  <br><br>
+
+{{/each}}
 </template>
 
-<template name="paymentInfo">
-  <p>Edit payment information here.</p>
+<template name="takenDeals">
+<h4>Today's Deals</h4>
+  {{#each deals}}
+    <strong>{{time}}</strong>
+    <br><br>
+    <strong>Percent off:</strong> {{discount}}%
+    <br><br>
+    <strong>Party size:</strong> {{partysize}} 
+    <br><br>
+    <strong>Number sold:</strong> {{tablessold}}
+    <br><br>
+    <strong>Customers:</strong> {{claimants}}
+    <br><br><br>
+  {{/each}}
+
 </template>
 
 <template name="restaurantLogin">
   <p>Restaurant login page.</p>
 </template>
 
-<template name="restaurantProfile">
-  <p>View or edit your restaurant profile.</p>
-</template>
-
-<template name="restaurantReservations">
-  <p>See reservations at your restaurant here.</p>
-</template>
-
 <template name="restaurantCreateDeal">
-  <p>Create a deal here.</p>
+  <h3>Post a Deal</h3>
+  <div id="creatingDeal">
+  {{#each customers}}
+  <form class="post-deal">
+  
+      <fieldset class="form-group">
+        <label for="party-size">Party Size</label>
+        <input type="text" class="form-control" id="partysize">
+      </fieldset>
+       <fieldset class="form-group">
+        <label for="discount">% Off</label>
+        <input type="text" class="form-control" id="discount">
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="time">Time</label>
+        <input type="time" class="form-control" id="time">
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="tables">Number of Tables</label>
+        <input type="text" class="form-control" id="tables">
+      </fieldset>
+      
+      <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+    {{/each}}
+
+    </div>
+
 </template>
+
+<template name="dealsList">
+      {{#each deals}}
+        {{#if dealsAvailable _id}}
+          <div id="restaurantname"><strong>{{restaurantname}}</strong></div>
+          <strong>Percent off:</strong> {{discount}}%
+          <br><strong>Tables left at this price:</strong> {{tables}}
+          <br><strong>Time:</strong> {{time}}
+          <br><strong>Party size:</strong> {{partysize}} 
+          <div class="dealButton">
+            <button type="button" class="btn btn-warning btn-sm">Claim this Deal</button>
+            </div>
+          <br><br>
+        {{/if}}
+      {{/each}}
+</template>
+
