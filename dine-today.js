@@ -259,7 +259,7 @@ if (Meteor.isClient) {
       var tables = parseInt(event.target.tables.value);
       var discount = event.target.discount.value;
       var partysize = event.target.partysize.value;
-      var userid = Meteor.userId();
+      var userid = this._id;
       var restaurantname = this.name;
       var id = this._id;
       console.log("Restaurant name: " + restaurantname);
@@ -288,38 +288,58 @@ if (Meteor.isClient) {
   });
 
 
-
   Template.signUp.events({
-    "submit .new-user": function() {
+    "submit .new-user": function(event) {
       console.log("So you are a new user.");
       event.preventDefault();
       var isRestaurant = event.target.userType.value;
       var userid = Meteor.userId();
       Customers.insert({
-        usertype: isRestaurant,
         userid: userid,
+        usertype: isRestaurant,
         createdAt: new Date()
       });
+      console.log("inserted new document of usertype " + isRestaurant + " with _id: " + this._id);
+
       if (isRestaurant == 'restaurant') {
         console.log("you have indicated that you are a restaurant");
       } else {
         console.log("you have indicated that you are a diner");
+        console.log("your meteor.userid is: " + Meteor.userId());
       }
     }
   });
 
+  Template.signUpRestaurant.helpers({
+
+      newrestaurants: function () {
+        return Customers.find({ 'userid': Meteor.userId()});
+      }
+  });
+
+  Template.signUpDiner.helpers({
+
+      newdiners: function () {
+        return Customers.find({ 'userid': Meteor.userId()});
+      }
+  });
+
   Template.signUpDiner.events({
-    "submit .new-diner": function() {
-      console.log("Registering your details as a diner");
+    "submit .new-diner": function(event) {
+      
       event.preventDefault();
+
 
       var name = event.target.name.value;
       var phone = event.target.phone.value;
       var email = event.target.email.value;
       var allergies = event.target.allergies.value;
       var zip = event.target.zip.value;
-      var userid = Meteor.userId();
-
+      var userid = this._id;
+      console.log("Registering your details as a diner with _id: " + userid);
+      $(".new-diner").toggleClass('hidden'); // show dealslist
+      $(".allDeals").toggleClass('hidden'); // show dealslist
+      $(".myReservations").toggleClass('hidden'); // show viewmyreservations
       Customers.update({
             _id: userid},
             {$set:
@@ -330,17 +350,15 @@ if (Meteor.isClient) {
                 allergies: allergies,
                 zip: zip,
               }
-            }); 
-      $(".new-diner").toggleClass('hidden'); // show dealslist
-      $(".allDeals").toggleClass('hidden'); // show dealslist
-      $(".myReservations").toggleClass('hidden'); // show viewmyreservations
+            });
     }
+      
 
   });
 
   Template.signUpRestaurant.events({
-    "submit .new-restaurant": function() {
-      console.log("Registering your details as a restaurant");
+    "submit .new-restaurant": function(event) {
+      
       event.preventDefault();
 
       var name = event.target.name.value;
@@ -349,7 +367,11 @@ if (Meteor.isClient) {
       var zip = event.target.zip.value;
       var yelp = event.target.yelp.value;
       var website = event.target.website.value;
-      var userid = Meteor.userId();
+      var userid = this._id;
+      $(".new-restaurant").toggleClass('hidden'); // show dealslist
+      $(".restaurants").toggleClass('hidden'); // show postdeal
+      $(".takenDeals").toggleClass('hidden'); // show viewtakendeals
+      console.log("Registering your details as a restaurant with _id: " + userid);
          Customers.update({
             _id: userid},
             {$set:
@@ -362,10 +384,8 @@ if (Meteor.isClient) {
                 zip: zip,
               }
             }); 
-      $(".new-restaurant").toggleClass('hidden'); // show dealslist
-      $(".restaurants").toggleClass('hidden'); // show postdeal
-      $(".takenDeals").toggleClass('hidden'); // show viewtakendeals
-    }
+       }
+      
 
   });
 
