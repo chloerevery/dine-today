@@ -97,10 +97,7 @@ if (Meteor.isClient) {
       },
 
       tablesleft: function() {
-        claimants = this.claimants;
-        sold = claimants.length;
-        start = this.tables;
-        return start-sold;
+        return this.tables;
       }
 
 
@@ -139,9 +136,6 @@ if (Meteor.isClient) {
       },
 
       tablesleft: function() {
-        // claimants = this.claimants;
-        // sold = claimants.length;
-        // start = this.tables;
         return this.tables;
       }
 
