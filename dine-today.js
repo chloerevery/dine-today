@@ -5,11 +5,7 @@ if (Meteor.isClient) {
   Session.setDefault('counter', 0);
 
   Template.body.helpers({
-      //  deals: [
-      //   { text: "This is deal 1" },
-      //   { text: "This is deal 2" },
-      //   { text: "This is deal 3" }
-      // ]
+
       customers: function () {
         return Customers.find({});
       },
@@ -100,22 +96,6 @@ if (Meteor.isClient) {
         return this.tables;
       }
 
-
-
-
-        // var claimantNames = new Array();
-        // //create new array to hold names of people who have reserved
-        // for (var c in claimants) { //for each item c in claimants
-        //   console.log("querying with userid " + claimants[c]);
-        //   var customerName = Customers.find({'userid': claimants[c]});
-        //   return customerName;
-        //   // console.log("customerName is " + customerName);
-        //   // claimantNames.push(customerName);
-        //   // console.log("pushed " + customerName + "to claimantNames");
-        // }
-        // // return claimantNames;
-    
-
     });
 
   Template.adtakenDeals.helpers({
@@ -138,20 +118,6 @@ if (Meteor.isClient) {
       tablesleft: function() {
         return this.tables;
       }
-
-
-        // var claimantNames = new Array();
-        // //create new array to hold names of people who have reserved
-        // for (var c in claimants) { //for each item c in claimants
-        //   console.log("querying with userid " + claimants[c]);
-        //   var customerName = Customers.find({'userid': claimants[c]});
-        //   return customerName;
-        //   // console.log("customerName is " + customerName);
-        //   // claimantNames.push(customerName);
-        //   // console.log("pushed " + customerName + "to claimantNames");
-        // }
-        // // return claimantNames;
-    
 
     });
     
@@ -311,18 +277,13 @@ if (Meteor.isClient) {
         createdAt: new Date()
       });
 
-        
-      
-
       // clear form
       event.target.time.value = "";
       event.target.tables.value = "";
       event.target.discount.value = "";
       event.target.partysize.value = "";
       $("#restaurants").toggleClass("hidden");
-
     }
-
 
   });
 
@@ -330,9 +291,27 @@ if (Meteor.isClient) {
 
   Template.signUp.events({
     "submit .new-user": function() {
-      console.log("Submit button clicked");
+      console.log("So you are a new user.");
       event.preventDefault();
       var isRestaurant = event.target.userType.value;
+      var userid = Meteor.userId();
+      Customers.insert({
+        usertype: isRestaurant,
+        userid: userid,
+        createdAt: new Date()
+      });
+      if (isRestaurant == 'restaurant') {
+        console.log("you have indicated that you are a restaurant");
+      } else {
+        console.log("you have indicated that you are a diner");
+      }
+    }
+  });
+
+  Template.signUpDiner.events({
+    "submit .new-diner": function() {
+      console.log("Registering your details as a diner");
+      event.preventDefault();
 
       var name = event.target.name.value;
       var phone = event.target.phone.value;
@@ -340,28 +319,54 @@ if (Meteor.isClient) {
       var allergies = event.target.allergies.value;
       var zip = event.target.zip.value;
       var userid = Meteor.userId();
-      Customers.insert({
-        usertype: isRestaurant,
-        userid: userid,
-        name: name,
-        phone: phone,
-        email: email,
-        allergies: allergies,
-        zip: zip,
-        createdAt: new Date()
-      });
 
-      console.log("Added new user to the database with values:")
-      console.log(name + " " + phone + " " + email + " " + allergies + " " + zip);
-      // clear form
-      event.target.name.value = "";
-      event.target.phone.value = "";
-      event.target.email.value = "";
-      event.target.allergies.value = "";
-      event.target.zip.value = "";
-
-
+      Customers.update({
+            _id: userid},
+            {$set:
+              {
+                name: name,
+                phone: phone,
+                email: email,
+                allergies: allergies,
+                zip: zip,
+              }
+            }); 
+      $(".new-diner").toggleClass('hidden'); // show dealslist
+      $(".allDeals").toggleClass('hidden'); // show dealslist
+      $(".myReservations").toggleClass('hidden'); // show viewmyreservations
     }
+
+  });
+
+  Template.signUpRestaurant.events({
+    "submit .new-restaurant": function() {
+      console.log("Registering your details as a restaurant");
+      event.preventDefault();
+
+      var name = event.target.name.value;
+      var phone = event.target.phone.value;
+      var email = event.target.email.value;
+      var zip = event.target.zip.value;
+      var yelp = event.target.yelp.value;
+      var website = event.target.website.value;
+      var userid = Meteor.userId();
+         Customers.update({
+            _id: userid},
+            {$set:
+              {
+                name: name,
+                phone: phone,
+                email: email,
+                yelp: yelp,
+                website: website,
+                zip: zip,
+              }
+            }); 
+      $(".new-restaurant").toggleClass('hidden'); // show dealslist
+      $(".restaurants").toggleClass('hidden'); // show postdeal
+      $(".takenDeals").toggleClass('hidden'); // show viewtakendeals
+    }
+
   });
 
 
