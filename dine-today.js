@@ -359,7 +359,7 @@ if (Meteor.isClient) {
                 fname: fname,
                 lname: lname,
                 street: street,
-                city: city
+                city: city,
                 state: state,
                 ccnum: ccnum,
                 cvv: cvv
