@@ -135,6 +135,10 @@
         <small class="text-muted">We'll never share your email with anyone else.</small>
       </fieldset>
       <fieldset class="form-group">
+        <label for="address">Address</label>
+        <input type="address" class="form-control" id="address">
+      </fieldset>
+      <fieldset class="form-group">
         <label for="zip">Zip Code</label>
         <input type="zip" class="form-control" id="zip">
       </fieldset>
@@ -336,6 +340,25 @@
     </form> 
   {{/each}}
   </div>
+  
+  <div class="settingsAddress">
+    Address:
+    {{#each customers}}
+      <span id="settingvar">{{address}}</span>
+    {{/each}}
+    <button type="button" class="btn btn-link btn-sm">Edit</button>
+  </div>
+    <div class="changeAddress hidden">
+    {{#each customers}}
+    <form class="change-address">
+      <fieldset class="form-group">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" id="address">
+      </fieldset>
+      <button type="submit" class="btn btn-primary btn-xs">Change Address</button>
+    </form> 
+    {{/each}}
+  </div>
 
   <div class="settingsZip">
     Zip Code:
@@ -361,6 +384,10 @@
 <template name="myReservations">
 {{#each deals}}
   <div id="restaurantname"><strong>{{restaurantname}}</strong></div>
+  <strong>Address:</strong> {{address}}
+  <br>
+  <strong>Zip Code:</strong> {{zip}}
+  <br>
   <strong>Percent off:</strong> {{discount}}%
   <br>
   <strong>Time:</strong> {{time}}
@@ -450,7 +477,9 @@
       {{#each deals}}
         {{#if dealsAvailable _id}}
           <div id="restaurantname"><strong>{{restaurantname}}</strong></div>
-          <strong>Percent off:</strong> {{discount}}%
+          <strong>Address:</strong> {{address}}
+          <br><strong>Zip Code:</strong> {{zip}}
+          <br><strong>Percent off:</strong> {{discount}}%
           <br><strong>Tables left at this price:</strong> {{tables}}
           <br><strong>Time:</strong> {{time}}
           <br><strong>Party size:</strong> {{partysize}} 
