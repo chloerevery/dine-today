@@ -30,3 +30,7 @@ body {
 .img-responsive {
 	margin: 0 auto;
 }
+
+.gray {
+	color: #999999;
+}
