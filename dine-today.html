@@ -135,10 +135,6 @@
         <small class="text-muted">We'll never share your email with anyone else.</small>
       </fieldset>
       <fieldset class="form-group">
-        <label for="address">Address</label>
-        <input type="address" class="form-control" id="address">
-      </fieldset>
-      <fieldset class="form-group">
         <label for="zip">Zip Code</label>
         <input type="zip" class="form-control" id="zip">
       </fieldset>
@@ -158,74 +154,92 @@
 <template name="signUpDiner">
   {{#each newdiners}}
       <form class="new-diner">
+      <div class="text-left">
+      <label>  User Details</label>
+      </div>
       <fieldset class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name">
+        <input type="text" class="form-control" id="name" placeholder="Preferred Name">
       </fieldset>
        <fieldset class="form-group">
-        <label for="phone">Phone Number</label>
-        <input type="tel" class="form-control" id="phone">
+        <input type="tel" class="form-control" id="phone" placeholder="Phone Number">
       </fieldset>
       <fieldset class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email">
-        <small class="text-muted">We'll never share your email with anyone else.</small>
+        <input type="email" class="form-control" id="email" placeholder="Email Address">
       </fieldset>
       <fieldset class="form-group">
-        <label for="allergies">Dietary restrictions</label>
         <textarea class="form-control" id="allergies" rows="3" placeholder="Please enter any dietary restrictions."></textarea>
       </fieldset>
       <!-- billing information -->
-      <fieldset class="form-group">
-        <label for="fname">First Name</label>
-        <input type="text" class="form-control" id="fname">
-      </fieldset>
-      <fieldset class="form-group">
-        <label for="lname">Last Name</label>
-        <input type="text" class="form-control" id="lname" placeholder="Last Name">
-      </fieldset>
+      <div class="text-left">
+      <label> Billing Information</label>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <fieldset class="form-group">
+            <input type="text" class="form-control" id="fname" placeholder="First Name">
+          </fieldset>
+        </div>
+        <div class="col-sm-6">
+          <fieldset class="form-group">
+            <input type="text" class="form-control" id="lname" placeholder="Last Name">
+          </fieldset>
+        </div>
+      </div>
       <fieldset class="form-group">
         <input type="text" class="form-control" id="street" placeholder="Street Address">
       </fieldset>
       <fieldset class="form-group">
         <input type="text" class="form-control" id="city" placeholder="City">
       </fieldset>
-      <fieldset class="form-group">
-        <input type="text" class="form-control" id="state" placeholder="State">
-      </fieldset>
-      <fieldset class="form-group">
-        <input type="zip" class="form-control" id="zip" placeholder="Zip Code">
-      </fieldset>
-      <fieldset class="form-group">
-        <input type="text" class="form-control" id="ccnum" placeholder="Debit/Credit Card Number">
-      </fieldset>
-      <fieldset class="form-group">
-        <input type="text" class="form-control" id="cvv" placeholder="Security Code (CVV)">
-      </fieldset>
-      <fieldset class="form-group">
-        <label for="expiration">Expiration Date</label>
-        <div class="col-xs-3">
-              <select class="form-control col-sm-2" name="expiry-month" id="expiry-month">
-                <option>Month</option>
-                <option value="01">Jan (01)</option>
-                <option value="02">Feb (02)</option>
-                <option value="03">Mar (03)</option>
-                <option value="04">Apr (04)</option>
-                <option value="05">May (05)</option>
-                <option value="06">June (06)</option>
-                <option value="07">July (07)</option>
-                <option value="08">Aug (08)</option>
-                <option value="09">Sep (09)</option>
-                <option value="10">Oct (10)</option>
-                <option value="11">Nov (11)</option>
-                <option value="12">Dec (12)</option>
-              </select>
+      <div class="row">
+        <div class="col-sm-8">
+          <fieldset class="form-group">
+            <input type="text" class="form-control" id="state" placeholder="State">
+          </fieldset>
         </div>
-        <div class="col-xs-3">
-              <select class="form-control" name="expiry-year">
-                <option value="13">2013</option>
-                <option value="14">2014</option>
-                <option value="15">2015</option>
+        <div class="col-sm-4">
+          <fieldset class="form-group">
+            <input type="zip" class="form-control" id="zip" placeholder="Zip Code">
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-9">
+          <fieldset class="form-group">
+            <input type="text" class="form-control" id="ccnum" placeholder="Debit/Credit Card Number">
+          </fieldset>
+        </div>
+        <div class="col-sm-3">
+          <fieldset class="form-group">
+            <input type="text" class="form-control" id="cvv" placeholder="CVV">
+          </fieldset>
+        </div>
+      </div>
+      <fieldset class="form-group">
+      <div class="row gray">
+        <p class="col-sm-4 gray">Expiration Date</p>
+       
+            <div class="col-sm-4 gray">
+              <select class="form-control col-sm-2 gray" name="expiry-month" id="expiry-month">
+              <option value="" disabled selected>Month</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+            </div>
+            <div class="col-sm-4 gray">
+              <select class="form-control gray" name="expiry-year">
+              <option value="" disabled selected>Year</option>
                 <option value="16">2016</option>
                 <option value="17">2017</option>
                 <option value="18">2018</option>
@@ -235,7 +249,9 @@
                 <option value="22">2022</option>
                 <option value="23">2023</option>
               </select>
-        </div>
+            </div>
+          </div>
+        
 
       </fieldset>
       <button type="submit" class="btn btn-primary">Submit</button>
@@ -340,25 +356,6 @@
     </form> 
   {{/each}}
   </div>
-  
-  <div class="settingsAddress">
-    Address:
-    {{#each customers}}
-      <span id="settingvar">{{address}}</span>
-    {{/each}}
-    <button type="button" class="btn btn-link btn-sm">Edit</button>
-  </div>
-    <div class="changeAddress hidden">
-    {{#each customers}}
-    <form class="change-address">
-      <fieldset class="form-group">
-        <label for="address">Address</label>
-        <input type="text" class="form-control" id="address">
-      </fieldset>
-      <button type="submit" class="btn btn-primary btn-xs">Change Address</button>
-    </form> 
-    {{/each}}
-  </div>
 
   <div class="settingsZip">
     Zip Code:
@@ -384,10 +381,6 @@
 <template name="myReservations">
 {{#each deals}}
   <div id="restaurantname"><strong>{{restaurantname}}</strong></div>
-  <strong>Address:</strong> {{address}}
-  <br>
-  <strong>Zip Code:</strong> {{zip}}
-  <br>
   <strong>Percent off:</strong> {{discount}}%
   <br>
   <strong>Time:</strong> {{time}}
@@ -477,9 +470,7 @@
       {{#each deals}}
         {{#if dealsAvailable _id}}
           <div id="restaurantname"><strong>{{restaurantname}}</strong></div>
-          <strong>Address:</strong> {{address}}
-          <br><strong>Zip Code:</strong> {{zip}}
-          <br><strong>Percent off:</strong> {{discount}}%
+          <strong>Percent off:</strong> {{discount}}%
           <br><strong>Tables left at this price:</strong> {{tables}}
           <br><strong>Time:</strong> {{time}}
           <br><strong>Party size:</strong> {{partysize}} 
