@@ -52,7 +52,7 @@ if (Meteor.isClient) {
 
       isManager: function() {
         //if is admin, show admin menu 
-        var isManager = Customers.find( { 'userid': Meteor.userId(), 'email': 'admin@dinetoday.com'} ).count();
+        var isManager = Customers.find( { 'userid': Meteor.userId(), 'usertype': 'admin'} ).count();
         if (isManager>0) {
           console.log("admin account active");
           return true;
@@ -188,6 +188,11 @@ if (Meteor.isClient) {
       $(".settingsZip").toggleClass("hidden");
       $(".changeZip").toggleClass("hidden");
     },
+    
+    "click .settingsAddress": function(event) {
+      $(".settingsAddress").toggleClass("hidden");
+      $(".changeAddress").toggleClass("hidden");
+    },
 
     //change setting button clicks
     "submit .change-name": function(event) {
@@ -246,7 +251,18 @@ if (Meteor.isClient) {
         _id: id}, {$set: {zip: zip}});
       $(".settingsZip").toggleClass("hidden");
       $(".changeZip").toggleClass("hidden");
-      }
+      },
+      
+      "submit .change-address": function() {
+    event.preventDefault();
+    console.log("Submit button clicked");
+    var address = event.target.address.value;
+    var id = this._id;
+    Customers.update({
+      _id: id}, {$set: {address: address}});
+    $(".settingsAddress").toggleClass("hidden");
+    $(".changeAddress").toggleClass("hidden");
+    }
 
   });
 
@@ -261,6 +277,8 @@ if (Meteor.isClient) {
       var partysize = event.target.partysize.value;
       var userid = this._id;
       var restaurantname = this.name;
+      var address = this.address;
+      var zip = this.zip;
       var id = this._id;
       console.log("Restaurant name: " + restaurantname);
       console.log("id: " + id);
@@ -268,6 +286,8 @@ if (Meteor.isClient) {
 
       Deals.insert({
         restaurantname: restaurantname,
+        address: address,
+        zip: zip,
         time: time,
         tables: tables,
         discount: discount,
@@ -364,6 +384,7 @@ if (Meteor.isClient) {
       var name = event.target.name.value;
       var phone = event.target.phone.value;
       var email = event.target.email.value;
+      var address = event.target.address.value;
       var zip = event.target.zip.value;
       var yelp = event.target.yelp.value;
       var website = event.target.website.value;
@@ -381,6 +402,7 @@ if (Meteor.isClient) {
                 email: email,
                 yelp: yelp,
                 website: website,
+                address: address,
                 zip: zip,
               }
             }); 
