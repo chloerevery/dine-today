@@ -52,6 +52,18 @@ if (Meteor.isClient) {
           console.log("she's a restaurant");
           return false
         }
+      },
+
+      isManager: function() {
+        //if is admin, show admin menu 
+        var isManager = Customers.find( { 'userid': Meteor.userId(), 'email': 'admin@dinetoday.com'} ).count();
+        if (isManager>0) {
+          console.log("admin account active");
+          return true;
+        } else {
+          console.log("non-admin account");
+          return false
+        }
       }
 
     });
@@ -82,9 +94,56 @@ if (Meteor.isClient) {
       tablessold: function() {
         claimants = this.claimants;
         return claimants.length;
+      },
+
+      tablesleft: function() {
+        claimants = this.claimants;
+        sold = claimants.length;
+        start = this.tables;
+        return start-sold;
       }
 
 
+
+
+        // var claimantNames = new Array();
+        // //create new array to hold names of people who have reserved
+        // for (var c in claimants) { //for each item c in claimants
+        //   console.log("querying with userid " + claimants[c]);
+        //   var customerName = Customers.find({'userid': claimants[c]});
+        //   return customerName;
+        //   // console.log("customerName is " + customerName);
+        //   // claimantNames.push(customerName);
+        //   // console.log("pushed " + customerName + "to claimantNames");
+        // }
+        // // return claimantNames;
+    
+
+    });
+
+  Template.adtakenDeals.helpers({
+      deals: function() {
+        console.log("querying deals to bring you the customers");
+        return Deals.find({});
+      },
+
+      customers: function () {
+        claimants = this.claimants;
+        console.log("claimants " + claimants);
+        return claimants;
+      },
+
+      tablessold: function() {
+        claimants = this.claimants;
+        return claimants.length;
+      },
+
+      tablesleft: function() {
+        // claimants = this.claimants;
+        // sold = claimants.length;
+        // start = this.tables;
+        return this.tables;
+      }
 
 
         // var claimantNames = new Array();
@@ -170,17 +229,6 @@ if (Meteor.isClient) {
       $(".changeZip").toggleClass("hidden");
     },
 
-    "click .settingsYelp": function(event) {
-      $(".settingsYelp").toggleClass("hidden");
-      $(".changeYelp").toggleClass("hidden");
-    },
-
-    "click .settingsWebsite": function(event) {
-      console.log("so you want to change your website?");
-      $(".settingsWebsite").toggleClass("hidden");
-      $(".changeWebsite").toggleClass("hidden");
-    },
-
     //change setting button clicks
     "submit .change-name": function(event) {
       event.preventDefault();
@@ -238,28 +286,6 @@ if (Meteor.isClient) {
         _id: id}, {$set: {zip: zip}});
       $(".settingsZip").toggleClass("hidden");
       $(".changeZip").toggleClass("hidden");
-      },
-
-      "submit .change-yelp": function() {
-      event.preventDefault();
-      console.log("Submit button clicked");
-      var yelp = event.target.yelp.value;
-      var id = this._id;
-      Customers.update({
-        _id: id}, {$set: {yelp: yelp}});
-      $(".settingsYelp").toggleClass("hidden");
-      $(".changeYelp").toggleClass("hidden");
-      },
-
-      "submit .change-website": function() {
-      event.preventDefault();
-      console.log("Submit button clicked");
-      var website = event.target.website.value;
-      var id = this._id;
-      Customers.update({
-        _id: id}, {$set: {website: website}});
-      $(".settingsWebsite").toggleClass("hidden");
-      $(".changeWebsite").toggleClass("hidden");
       }
 
   });
@@ -319,8 +345,6 @@ if (Meteor.isClient) {
       var email = event.target.email.value;
       var allergies = event.target.allergies.value;
       var zip = event.target.zip.value;
-      var yelp = event.target.yelp.value;
-      var website = event.target.website.value;
       var userid = Meteor.userId();
       Customers.insert({
         usertype: isRestaurant,
@@ -330,8 +354,6 @@ if (Meteor.isClient) {
         email: email,
         allergies: allergies,
         zip: zip,
-        website: website,
-        yelp: yelp,
         createdAt: new Date()
       });
 
@@ -371,6 +393,12 @@ if (Meteor.isClient) {
   Template.viewTakenDeals.events({
     'click .takenDeals': function() {
       $("#takenDeals").toggleClass("hidden");
+    }
+  });
+
+  Template.adviewTakenDeals.events({
+    'click .adtakenDeals': function() {
+      $("#adtakenDeals").toggleClass("hidden");
     }
   });
 
