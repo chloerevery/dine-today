@@ -380,6 +380,7 @@ if (Meteor.isClient) {
       var email = event.target.email.value;
       var zip = event.target.zip.value;
       var yelp = event.target.yelp.value;
+      var staddress = event.target.staddress.value;
       var website = event.target.website.value;
       var userid = this._id;
       $(".new-restaurant").toggleClass('hidden'); // show dealslist
@@ -394,6 +395,7 @@ if (Meteor.isClient) {
                 phone: phone,
                 email: email,
                 yelp: yelp,
+                address: staddress,
                 website: website,
                 zip: zip,
               }
